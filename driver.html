@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Registration - Antigravity</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="static/images/logo.svg">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="stars"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="static/images/logo.svg" alt="Antigravity Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html">Book Carry</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="driver.html" class="active">Driver Registration</a></li>
+                <li><a href="bookings.html">All Bookings</a></li>
+                <li><a href="drivers.html">Our Drivers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="section-title">
+        <h2>Driver Registration</h2>
+        <p>Join our team of professional delivery drivers</p>
+    </div>
+
+    <div class="card form-container">
+        <form id="driverForm">
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="full_name">Full Name *</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="0300-1234567" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com">
+            </div>
+
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="vehicle_type">Vehicle Type *</label>
+                    <select class="form-control" id="vehicle_type" name="vehicle_type" required>
+                        <option value="">Select vehicle type</option>
+                        <option value="Bike">Bike</option>
+                        <option value="Car">Car</option>
+                        <option value="Van">Van</option>
+                        <option value="Truck">Truck</option>
+                        <option value="Pickup">Pickup</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle_model">Vehicle Model *</label>
+                    <input type="text" class="form-control" id="vehicle_model" name="vehicle_model" placeholder="e.g., Honda Civic 2023" required>
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="vehicle_number">Vehicle Number *</label>
+                    <input type="text" class="form-control" id="vehicle_number" name="vehicle_number" placeholder="e.g., ABC-1234" required>
+                </div>
+                <div class="form-group">
+                    <label for="license_number">License Number *</label>
+                    <input type="text" class="form-control" id="license_number" name="license_number" placeholder="Enter license number" required>
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="experience_years">Experience (Years)</label>
+                    <input type="number" class="form-control" id="experience_years" name="experience_years" value="0" min="0" max="50">
+                </div>
+                <div class="form-group">
+                    <label for="city">City *</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" style="width: 100%; justify-content: center; font-size: 1.1rem;">
+                Register as Driver
+            </button>
+        </form>
+    </div>
+
+    <div style="max-width: 700px; margin: 2rem auto; padding: 0 2rem;">
+        <div class="card">
+            <h3 style="color: white; margin-bottom: 1rem;">Benefits of Joining Us</h3>
+            <ul class="feature-list">
+                <li>Competitive earnings per delivery</li>
+                <li>Flexible working hours</li>
+                <li>Weekly payments</li>
+                <li>Insurance coverage</li>
+                <li>24/7 support</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Antigravity Carry Booking. All rights reserved.</p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+    <script>
+        document.getElementById('driverForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const driver = {
+                id: Date.now(),
+                full_name: document.getElementById('full_name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                vehicle_type: document.getElementById('vehicle_type').value,
+                vehicle_model: document.getElementById('vehicle_model').value,
+                vehicle_number: document.getElementById('vehicle_number').value,
+                license_number: document.getElementById('license_number').value,
+                experience_years: document.getElementById('experience_years').value,
+                city: document.getElementById('city').value,
+                available: true,
+                rating: 5.0,
+                registration_date: new Date().toISOString()
+            };
+
+            const drivers = JSON.parse(localStorage.getItem('ag_drivers') || '[]');
+            drivers.push(driver);
+            localStorage.setItem('ag_drivers', JSON.stringify(drivers));
+
+            alert('Driver registration successful!');
+            window.location.href = 'drivers.html';
+        });
+    </script>
+</body>
+</html>

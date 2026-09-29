@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Carry Booking - Home</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="static/images/logo.svg">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="stars"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="static/images/logo.svg" alt="Antigravity Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="book.html">Book Carry</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="driver.html">Driver Registration</a></li>
+                <li><a href="bookings.html">All Bookings</a></li>
+                <li><a href="drivers.html">Our Drivers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Deliver Beyond Gravity</h1>
+            <p>Book your carry package from the comfort of your home. Fast, reliable, and professional delivery service across the city.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="book.html" class="btn btn-primary">Book Now</a>
+                <a href="driver.html" class="btn btn-outline">Register as Driver</a>
+            </div>
+        </div>
+        <div class="hero-image floating">
+            <img src="static/images/hero.svg" alt="Antigravity Carry Booking">
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number" id="stat-bookings">0</div>
+            <div class="stat-label">Total Bookings</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="stat-drivers">0</div>
+            <div class="stat-label">Active Drivers</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Service Available</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Safe Delivery</div>
+        </div>
+    </section>
+
+    <div class="section-title">
+        <h2>Why Choose Us?</h2>
+        <p>Experience the future of package delivery</p>
+    </div>
+
+    <div class="grid grid-3">
+        <div class="card">
+            <div class="card-icon" style="background: rgba(99, 102, 241, 0.2);">🚀</div>
+            <h3>Lightning Fast</h3>
+            <p>Same-day delivery service with real-time tracking. Your packages reach destination in record time.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background: rgba(34, 211, 238, 0.2);">🛡️</div>
+            <h3>100% Secure</h3>
+            <p>Your packages are fully insured and handled with utmost care. End-to-end secure delivery guaranteed.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background: rgba(244, 114, 182, 0.2);">💰</div>
+            <h3>Best Prices</h3>
+            <p>Competitive rates with no hidden charges. Get the best value for your money on every booking.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background: rgba(52, 211, 153, 0.2);">📍</div>
+            <h3>Live Tracking</h3>
+            <p>Track your package in real-time from pickup to delivery. Stay updated at every step of the journey.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background: rgba(251, 191, 36, 0.2);">⭐</div>
+            <h3>Verified Drivers</h3>
+            <p>All our drivers are background-checked and professionally trained for safe package handling.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon" style="background: rgba(139, 92, 246, 0.2);">📱</div>
+            <h3>Easy Booking</h3>
+            <p>Book in seconds from your home. Simple, fast, and hassle-free booking process on any device.</p>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <h2>How It Works</h2>
+        <p>Simple 3-step process</p>
+    </div>
+
+    <div class="grid grid-3">
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">1️⃣</div>
+            <h3>Book Online</h3>
+            <p>Fill in your pickup and drop-off details. Choose your package type and schedule.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">2️⃣</div>
+            <h3>Driver Assigned</h3>
+            <p>We assign the nearest verified driver to pick up your package from your location.</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">3️⃣</div>
+            <h3>Delivered Safe</h3>
+            <p>Your package is delivered safely to the destination. Track it live until delivery.</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 3rem 2rem;">
+        <a href="book.html" class="btn btn-primary" style="font-size: 1.2rem; padding: 18px 40px;">
+            Start Booking Now
+        </a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Antigravity Carry Booking. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Delivering beyond gravity</p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+    <script>
+        // Update stats from localStorage
+        const bookings = JSON.parse(localStorage.getItem('ag_bookings') || '[]');
+        const drivers = JSON.parse(localStorage.getItem('ag_drivers') || '[]');
+        document.getElementById('stat-bookings').textContent = bookings.length;
+        document.getElementById('stat-drivers').textContent = drivers.length;
+    </script>
+</body>
+</html>

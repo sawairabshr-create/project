@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Antigravity Carry Booking</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="static/images/logo.svg">
+    <style>
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .payment-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .payment-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        .payment-card.selected {
+            border-color: var(--success);
+            background: rgba(52, 211, 153, 0.1);
+        }
+        .payment-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .payment-card h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .payment-card .account-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            background: rgba(34, 211, 238, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 1rem;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+        }
+        .payment-card .account-name {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .payment-instructions {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .payment-instructions h4 {
+            color: var(--warning);
+            margin-bottom: 1rem;
+        }
+        .payment-instructions ol {
+            padding-left: 1.5rem;
+            color: var(--text);
+        }
+        .payment-instructions li {
+            margin-bottom: 0.5rem;
+        }
+        .copy-btn {
+            background: var(--gradient-2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        .copy-btn:hover {
+            transform: scale(1.05);
+        }
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        .success-overlay.show {
+            display: flex;
+        }
+        .success-overlay .checkmark {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="stars"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="static/images/logo.svg" alt="Antigravity Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html">Book Carry</a></li>
+                <li><a href="payment.html" class="active">Payment</a></li>
+                <li><a href="driver.html">Driver Registration</a></li>
+                <li><a href="bookings.html">All Bookings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="section-title">
+        <h2>Payment</h2>
+        <p>Pay easily via JazzCash or Easypaisa to confirm your booking</p>
+    </div>
+
+    <div class="card form-container">
+        <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">Select Payment Method</h3>
+
+        <div class="payment-methods">
+            <div class="payment-card selected" onclick="selectPayment('jazzcash')">
+                <div class="icon">📱</div>
+                <h3>JazzCash</h3>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label style="color: var(--text-muted); font-size: 0.85rem;">Account Number</label>
+                    <input type="text" class="form-control" id="jazzcash_number" placeholder="Enter JazzCash number" style="text-align: center; font-size: 1.1rem; font-weight: 600;">
+                </div>
+                <div class="form-group">
+                    <label style="color: var(--text-muted); font-size: 0.85rem;">Account Name</label>
+                    <input type="text" class="form-control" id="jazzcash_name" placeholder="Enter account name" style="text-align: center;">
+                </div>
+            </div>
+
+            <div class="payment-card" onclick="selectPayment('easypaisa')">
+                <div class="icon">💳</div>
+                <h3>Easypaisa</h3>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label style="color: var(--text-muted); font-size: 0.85rem;">Account Number</label>
+                    <input type="text" class="form-control" id="easypaisa_number" placeholder="Enter Easypaisa number" style="text-align: center; font-size: 1.1rem; font-weight: 600;">
+                </div>
+                <div class="form-group">
+                    <label style="color: var(--text-muted); font-size: 0.85rem;">Account Name</label>
+                    <input type="text" class="form-control" id="easypaisa_name" placeholder="Enter account name" style="text-align: center;">
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-instructions">
+            <h4>📋 Payment Instructions:</h4>
+            <ol>
+                <li>Open your JazzCash/Easypaisa app</li>
+                <li>Send money to the account number above</li>
+                <li>Enter the amount: <strong id="paymentAmount">Rs. 1,000</strong></li>
+                <li>Take a screenshot of the payment</li>
+                <li>Click "I Have Paid" button below</li>
+                <li>Your booking will be confirmed after verification</li>
+            </ol>
+        </div>
+
+        <div class="form-group">
+            <label for="sender_number">Your Payment Account Number *</label>
+            <input type="text" class="form-control" id="sender_number" placeholder="Enter the number you paid from" required>
+        </div>
+
+        <div class="form-group">
+            <label for="transaction_id">Transaction ID *</label>
+            <input type="text" class="form-control" id="transaction_id" placeholder="Enter transaction ID from payment" required>
+        </div>
+
+        <div class="form-group">
+            <label for="payment_amount">Amount Paid *</label>
+            <input type="text" class="form-control" id="payment_amount" placeholder="e.g., 1000" required>
+        </div>
+
+        <button class="btn btn-success" style="width: 100%; justify-content: center; font-size: 1.1rem;" onclick="confirmPayment()">
+            I Have Paid - Confirm Payment
+        </button>
+    </div>
+
+    <div class="success-overlay" id="successOverlay">
+        <div class="checkmark">✓</div>
+        <h2 style="color: white; margin-bottom: 1rem;">Payment Submitted!</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Your payment is being verified. You will receive access shortly.</p>
+        <a href="index.html" class="btn btn-primary">Go to Home</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Antigravity Carry Booking. All rights reserved.</p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+    <script>
+        let selectedMethod = 'jazzcash';
+
+        function selectPayment(method) {
+            selectedMethod = method;
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        function copyNumber(fieldId, event) {
+            event.stopPropagation();
+            const field = document.getElementById(fieldId);
+            const number = field.value;
+            if (!number) {
+                alert('Please enter the account number first.');
+                return;
+            }
+            navigator.clipboard.writeText(number).then(() => {
+                const btn = event.target;
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+
+        function confirmPayment() {
+            const senderNumber = document.getElementById('sender_number').value;
+            const transactionId = document.getElementById('transaction_id').value;
+            const amount = document.getElementById('payment_amount').value;
+
+            if (!senderNumber || !transactionId || !amount) {
+                alert('Please fill in all payment details.');
+                return;
+            }
+
+            // Save payment info
+            const payment = {
+                method: selectedMethod,
+                sender_number: senderNumber,
+                transaction_id: transactionId,
+                amount: amount,
+                date: new Date().toISOString(),
+                status: 'Pending Verification'
+            };
+
+            const payments = JSON.parse(localStorage.getItem('ag_payments') || '[]');
+            payments.push(payment);
+            localStorage.setItem('ag_payments', JSON.stringify(payments));
+
+            // Confirm the pending booking
+            const pendingBooking = JSON.parse(localStorage.getItem('ag_pending_booking') || 'null');
+            if (pendingBooking) {
+                pendingBooking.status = 'Confirmed';
+                pendingBooking.payment_method = selectedMethod;
+                pendingBooking.transaction_id = transactionId;
+
+                const bookings = JSON.parse(localStorage.getItem('ag_bookings') || '[]');
+                bookings.push(pendingBooking);
+                localStorage.setItem('ag_bookings', JSON.stringify(bookings));
+
+                // Set as last booking for confirmation page
+                localStorage.setItem('ag_last_booking', pendingBooking.ref);
+                localStorage.removeItem('ag_pending_booking');
+            }
+
+            // Show success
+            document.getElementById('successOverlay').classList.add('show');
+        }
+
+        // Get booking amount from localStorage
+        const pendingBooking = JSON.parse(localStorage.getItem('ag_pending_booking') || 'null');
+        if (pendingBooking && pendingBooking.fare_estimate) {
+            document.getElementById('paymentAmount').textContent = pendingBooking.fare_estimate;
+        }
+    </script>
+</body>
+</html>

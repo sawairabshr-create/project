@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Carry - Antigravity</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="static/images/logo.svg">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="stars"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <img src="static/images/logo.svg" alt="Antigravity Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="book.html" class="active">Book Carry</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="driver.html">Driver Registration</a></li>
+                <li><a href="bookings.html">All Bookings</a></li>
+                <li><a href="drivers.html">Our Drivers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="section-title">
+        <h2>Book Your Carry</h2>
+        <p>Fill in the details below to book your package delivery</p>
+    </div>
+
+    <div class="card form-container">
+        <form id="bookingForm">
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="full_name">Full Name *</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="0300-1234567" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com">
+            </div>
+
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="pickup_location">Pickup Location *</label>
+                    <input type="text" class="form-control" id="pickup_location" name="pickup_location" placeholder="Enter pickup address" required>
+                </div>
+                <div class="form-group">
+                    <label for="dropoff_location">Drop-off Location *</label>
+                    <input type="text" class="form-control" id="dropoff_location" name="dropoff_location" placeholder="Enter drop-off address" required>
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="package_type">Package Type *</label>
+                    <select class="form-control" id="package_type" name="package_type" required>
+                        <option value="">Select package type</option>
+                        <option value="Documents">Documents</option>
+                        <option value="Small Package">Small Package</option>
+                        <option value="Medium Package">Medium Package</option>
+                        <option value="Large Package">Large Package</option>
+                        <option value="Heavy Cargo">Heavy Cargo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="package_weight">Package Weight (kg)</label>
+                    <input type="text" class="form-control" id="package_weight" name="package_weight" placeholder="e.g., 5 kg">
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="padding: 0; gap: 1rem;">
+                <div class="form-group">
+                    <label for="travel_date">Travel Date *</label>
+                    <input type="date" class="form-control" id="travel_date" name="travel_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="travel_time">Travel Time *</label>
+                    <input type="time" class="form-control" id="travel_time" name="travel_time" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="passengers">Number of Packages</label>
+                <input type="number" class="form-control" id="passengers" name="passengers" value="1" min="1" max="50">
+            </div>
+
+            <div class="form-group">
+                <label for="special_instructions">Special Instructions</label>
+                <textarea class="form-control" id="special_instructions" name="special_instructions" placeholder="Any special handling instructions..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1.1rem;">
+                Confirm Booking
+            </button>
+        </form>
+    </div>
+
+    <div style="max-width: 700px; margin: 2rem auto; padding: 0 2rem;">
+        <div class="card" style="display: flex; align-items: center; gap: 1.5rem;">
+            <img src="static/images/car-illustration.svg" alt="Car" style="width: 150px; height: auto;">
+            <div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Need Help?</h3>
+                <p style="color: var(--text-muted);">Our support team is available 24/7 to assist you with your booking.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Antigravity Carry Booking. All rights reserved.</p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const bookingRef = 'AGR-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + String(Math.floor(Math.random() * 9000) + 1000);
+
+            const booking = {
+                ref: bookingRef,
+                full_name: document.getElementById('full_name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                pickup_location: document.getElementById('pickup_location').value,
+                dropoff_location: document.getElementById('dropoff_location').value,
+                package_type: document.getElementById('package_type').value,
+                package_weight: document.getElementById('package_weight').value,
+                travel_date: document.getElementById('travel_date').value,
+                travel_time: document.getElementById('travel_time').value,
+                passengers: document.getElementById('passengers').value,
+                special_instructions: document.getElementById('special_instructions').value,
+                status: 'Pending Payment',
+                fare_estimate: calculateFare(document.getElementById('package_type').value),
+                booking_date: new Date().toISOString()
+            };
+
+            // Assign driver
+            const drivers = JSON.parse(localStorage.getItem('ag_drivers') || '[]');
+            const availableDriver = drivers.find(d => d.available);
+            if (availableDriver) {
+                booking.driver_name = availableDriver.full_name;
+                booking.driver_phone = availableDriver.phone;
+                booking.vehicle_type = availableDriver.vehicle_type;
+                booking.vehicle_model = availableDriver.vehicle_model;
+                booking.vehicle_number = availableDriver.vehicle_number;
+            }
+
+            // Save as pending booking
+            localStorage.setItem('ag_pending_booking', JSON.stringify(booking));
+
+            // Redirect to payment page
+            window.location.href = 'payment.html';
+        });
+
+        function calculateFare(type) {
+            const fares = {
+                'Documents': 'Rs. 500',
+                'Small Package': 'Rs. 800',
+                'Medium Package': 'Rs. 1,500',
+                'Large Package': 'Rs. 3,000',
+                'Heavy Cargo': 'Rs. 5,000+'
+            };
+            return fares[type] || 'Rs. 1,000';
+        }
+    </script>
+</body>
+</html>
